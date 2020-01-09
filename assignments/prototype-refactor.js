@@ -19,6 +19,7 @@ Prototype Refactor
 class GameObject {
   constructor(gameObjectAttributes) {
     this.createdAt = gameObjectAttributes.createdAt;
+    this.name = gameObjectAttributes.name;
     this.dimensions = gameObjectAttributes.dimensions;
   }
   destroy() {
@@ -26,63 +27,31 @@ class GameObject {
   }
 }
 
-// function CharacterStats(characterStatsAttribute) {
-//   GameObject.call(this, characterStatsAttribute);
-//   this.hp = characterStatsAttribute.hp;
-//   this.name = characterStatsAttribute.name;
-// }
-
-// CharacterStats.prototype = Object.create(GameObject.prototype);
-// CharacterStats.prototype.takeDamage = function() {
-//   return `${this.name} took damage`;
-// };
-
-// class Humanoid extends CharacterStats {
-//   constructor(HumanoidProperties) {
-//     this.faction = HumanoidProperties.faction;
-//     this.weapons = HumanoidProperties.weapons;
-//     this.language = HumanoidProperties.language;
-//   }
-//   greet() {
-//     return `${this.name} offers a greeting in ${this.language}`;
-//   }
-// }
-
 class CharacterStats extends GameObject {
-  constructor(characterProperties) {
-    super(characterProperties);
-    this.hp = characterProperties.hp;
-    this.name = characterProperties.name;
+  constructor(characterAttributes) {
+    super(characterAttributes);
+
+    this.healthPoints = characterAttributes.healthPoints;
   }
   takeDamage() {
     return `${this.name} took damage`;
   }
 }
 
-// function Humanoid(HumanoidProperties) {
-//   CharacterStats.call(this, HumanoidProperties);
-//   this.faction = HumanoidProperties.faction;
-//   this.weapons = HumanoidProperties.weapons;
-//   this.language = HumanoidProperties.language;
-// }
-
-// Humanoid.prototype = Object.create(CharacterStats.prototype);
-// Humanoid.prototype.greet = function() {
-//   return `${this.name} offers a greeting in ${this.language}`;
-// };
-
 class Humanoid extends CharacterStats {
-  constructor(HumanoidProperties) {
-    super(HumanoidProperties);
-    this.faction = HumanoidProperties.faction;
-    this.weapons = HumanoidProperties.weapons;
-    this.language = HumanoidProperties.language;
+  constructor(humanoidAttributes) {
+    super(humanoidAttributes);
+    this.team = humanoidAttributes.team;
+    this.weapons = humanoidAttributes.weapons;
+    this.language = humanoidAttributes.language;
+  }
+
+  // Humanoid.prototype = Object.create(CharacterStats.prototype);
+  // Humanoid.prototype.greet = function() {
+  greet() {
+    return `${this.name} offers a greeting in ${this.language}`;
   }
 }
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`;
-};
 
 const mage = new Humanoid({
   createdAt: new Date(),
